@@ -97,7 +97,11 @@ finally:
   exists=subprocess.run(['docker','container','inspect',name],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode==0
   if exists and subprocess.run(['docker','rm','-f',name],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0:cleanup_errors.append(name)
  if created_network and subprocess.run(['docker','network','rm',network],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0:cleanup_errors.append(network)
- shutil.rmtree(site)
+ # Rootful Docker can create root-owned Joomla cache directories. Remove only
+ # this run's disposable mounted contents, without broad host chown/sudo.
+ cleanup_code="from pathlib import Path; import shutil; [(shutil.rmtree(p) if p.is_dir() and not p.is_symlink() else p.unlink()) for p in Path('/fixture').iterdir()]"
+ if subprocess.run(['docker','run','--rm','--network','none','-v',f'{site}:/fixture','python:3.12-slim','python','-c',cleanup_code],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode!=0:cleanup_errors.append(str(site))
+ else:site.rmdir()
  logs.append('JOOMLA_NATIVE_CLEANUP_COMPLETE' if not cleanup_errors else 'CLEANUP_FAILED '+repr(cleanup_errors))
  (work/f'{args.version}-results.txt').write_text('\n'.join(logs))
  if cleanup_errors:raise RuntimeError('Fixture cleanup failed: '+repr(cleanup_errors))

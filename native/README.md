@@ -15,7 +15,9 @@ extraction. `--archive /path/to/package.tar.gz` reuses a local archive but still
 checks its hash. Downloads, fresh installed sites and logs use ignored
 `.native-work/`; it removes each installed site after its run. It creates a unique
 internal Docker network and fresh MariaDB container, with no published ports or
-host trust/DNS changes. Cleanup removes only its own named containers/network.
+host trust/DNS changes. Cleanup removes only its own named containers/network. A network-disabled Python
+container clears the disposable site mount so root-owned Docker cache files can
+be removed on rootful runners; it does not change host ownership or use sudo.
 
 Dummy fixture credentials are intentionally in the scripts and not production
 secrets. Only the isolated API stand-in receives requests. PHP mail is disabled;
