@@ -57,7 +57,7 @@ try:
   archive=work/f'Joomla_{args.version}.tar.gz'
   if not archive.exists():
    url=f'https://github.com/joomla/joomla-cms/releases/download/{args.version}/Joomla_{args.version}-Stable-Full_Package.tar.gz'
-   with urllib.request.urlopen(url,timeout=60) as response,archive.open('wb') as output:shutil.copyfileobj(response,output)
+   with urllib.request.urlopen(urllib.request.Request(url,headers={'User-Agent':'mailchannels-joomla-test-fixture'}),timeout=60) as response,archive.open('wb') as output:shutil.copyfileobj(response,output)
  assert hashlib.sha256(archive.read_bytes()).hexdigest()==VERSIONS[args.version],'Official archive SHA256 mismatch'
  with tarfile.open(archive) as t:t.extractall(site,filter='data')
  docker('network','create','--internal',network);created_network=True
