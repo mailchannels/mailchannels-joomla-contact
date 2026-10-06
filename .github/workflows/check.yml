@@ -1,0 +1,20 @@
+name: Candidate checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  isolated-transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install cryptography
+      - run: docker build -f .ci/Dockerfile -t mailchannels-joomla-tests:php83 .
+      - run: docker network create --internal visibility-joomla-native
+      - run: python tls/run.py
+      - run: python build_package.py
+      - name: PHP syntax
+        run: docker run --rm --network none -v "$PWD:/source:ro" mailchannels-joomla-tests:php83 sh -c 'find /source/candidate -name "*.php" -exec php -l {} \;'
