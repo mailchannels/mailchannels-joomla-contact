@@ -17,4 +17,4 @@ jobs:
       - run: python tls/run.py
       - run: python build_package.py
       - name: PHP syntax
-        run: docker run --rm --network none -v "$PWD:/source:ro" mailchannels-joomla-tests:php83 sh -c 'find /source/candidate -name "*.php" -exec php -l {} \;'
+        run: docker run --rm --network none -v "$PWD:/source:ro" mailchannels-joomla-tests:php83 sh -c 'find /source/candidate -name "*.php" -print0 | xargs -0 -n1 php -l'
