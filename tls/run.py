@@ -1,7 +1,7 @@
 """Run real cURL TLS probes on an internal Docker network, never the provider."""
 from pathlib import Path
 from datetime import datetime, timedelta, timezone
-import json, subprocess, time
+import json, subprocess, time, os
 from cryptography import x509
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
@@ -25,12 +25,12 @@ for name in ['trusted','wrong-host','expired','untrusted']:
     (out/(name+'.crt')).write_bytes(cert.public_bytes(serialization.Encoding.PEM))
     (out/(name+'.key')).write_bytes(k.private_bytes(serialization.Encoding.PEM,serialization.PrivateFormat.PKCS8,serialization.NoEncryption()))
 def run(args,**kwargs):return subprocess.run(args,text=True,capture_output=True,check=True,**kwargs)
-network='visibility-joomla-native'
+network=os.environ.get('MAILCHANNELS_TEST_NETWORK','visibility-joomla-native')
 assert run(['docker','network','inspect','--format','{{.Internal}}',network]).stdout.strip()=='true'
 results=[]
 for scenario in ['trusted','wrong-host','expired','untrusted','redirect','dry-run','failed','malformed','empty','oversize','wrong-index','stall']:
     records=out/(scenario+'-requests.jsonl');records.unlink(missing_ok=True)
-    name='visibility-joomla-tls'
+    name=os.environ.get('MAILCHANNELS_TEST_CONTAINER_PREFIX','visibility-joomla')+'-tls'
     run(['docker','run','-d','--rm','--name',name,'--network',network,'--network-alias','api.mailchannels.net','-e','SCENARIO='+scenario,'-v',str(out)+':/fixtures','-v',str(root)+':/probe:ro','python:3.12-slim','python','/probe/server.py'])
     try:
         for attempt in range(100):
