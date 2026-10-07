@@ -21,7 +21,7 @@ try{
  $language=$app->getLanguage();$base='/app/plugins/contact/mailchannelscontact';
  check($language->load('plg_contact_mailchannelscontact',$base,'en-GB',true) && $language->_('PLG_CONTACT_MAILCHANNELSCONTACT_IDS_LABEL')==='Enabled contact IDs','native language loader resolves plugin configuration label');
  check($language->_('PLG_CONTACT_MAILCHANNELSCONTACT_ACCEPTED')==='Your contact submission was accepted for email processing.','native language loader resolves acceptance message');
- check($language->load('plg_contact_mailchannelscontact.sys',$base,'en-GB',true) && $language->_('PLG_CONTACT_MAILCHANNELSCONTACT')==='MailChannels Contact Email API (unreleased candidate)','native language loader resolves system plugin name');
+ check($language->load('plg_contact_mailchannelscontact.sys',$base,'en-GB',true) && $language->_('PLG_CONTACT_MAILCHANNELSCONTACT')==='MailChannels Contact','native language loader resolves system plugin name');
  $params=json_encode(['contact_ids'=>'42,77','fixture_preserve'=>'yes']);
  $db->setQuery('UPDATE #__extensions SET enabled=1,params='.$db->quote($params).' WHERE extension_id='.(int)$record->extension_id)->execute();
  check(installer()->install($package['dir']),'same-version package reinstall succeeds');

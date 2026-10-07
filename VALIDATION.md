@@ -1,9 +1,9 @@
 # Validation scope
 
-The unchanged candidate files were tested on Joomla 5.4.9 and 6.1.4 with PHP
+The candidate files were tested on Joomla 5.4.9 and 6.1.4 with PHP
 8.3.35 and MariaDB 11.8.9. The reviewed nine-file ZIP SHA-256 is:
 
-`b95cd1f8c068ca121fa194a4fe74054a4e33cb6296edcb91482a48a7dbad0724`
+`601c87c198496068696c25d9f14568f4892c9e5aa29e079de27f2f9016f8bbe9`
 
 Per release, native validation covered 20 template checks, 12 attachment/header
 checks, 10 delivery/copy/failure checks, 8 installation/discovery checks,
@@ -31,3 +31,9 @@ index and timeout. Only the trusted successful acceptance returns true.
 All email requests in these checks went to an isolated stand-in, not MailChannels.
 No evidence here proves live delivery, all Joomla/PHP versions, every custom
 field/MIME feature, mobile/accessibility acceptance, or exactly-once behavior.
+
+The display name is now MailChannels Contact. Chrome screenshots inspected on
+both versions at 390px show document width 375px (previously 651px). The
+unreleased description, Custom Reply help and Disabled status remain visible.
+The native header still truncates under its gear control; this is not full
+mobile or accessibility certification. No provider request was made.

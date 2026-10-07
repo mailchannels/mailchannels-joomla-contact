@@ -54,7 +54,9 @@ removing the disposable site/database/network. Require the final cleanup marker.
 
 Actual Chrome review on5.4.9/6.1.4 confirmed localized editor text, inline Custom
 Reply help, contact-ID edit/save and disabled status in the database. Desktop1280
-screenshots were inspected. At390px, form fields/help wrap but the long plugin
-page title makes the document651px wide; narrow-screen acceptance remains open.
+screenshots were inspected. After shortening the display name to MailChannels Contact, at390px the document
+is375px wide on both versions (previously651px). Description/help wrap and the
+plugin remains disabled. The native header truncates under its gear control;
+full mobile/accessibility acceptance remains open.
 This does not cover browser contact submission, custom ACL/session flows,
 keyboard-only or screen-reader acceptance. No provider call occurs in this mode.
