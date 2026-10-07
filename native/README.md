@@ -36,3 +36,25 @@ The runner does not automate Chrome, a real CAPTCHA service, live MailChannels
 validation, mobile/accessibility acceptance or every runtime/feature variant.
 Known native FieldTable null/explode deprecations during custom-field deletion
 are distinct from the asserted successful deletion/absence checks.
+
+## Administrator browser review
+
+Run `python native/run.py 6.1.4 --review-port 18191` (or5.4.9).
+After the native checks pass, the runner prints the administrator URL, synthetic
+login and plugin-editor URL. It keeps the plugin disabled, supplies no API key,
+disables PHP mail and uses the same internal Docker network. A loopback-only
+PHP/docker-exec relay exposes the admin UI without a published container port.
+Do not enable the plugin or enter real credentials in this disposable site.
+
+The HTTP checks leave contact IDs42,77 selected with status Disabled. Review the
+localized description, toggle inline help, edit the selection and save. Keep the
+plugin disabled. Ctrl-C closes the relay and then runs administrator cleanup,
+including configuration restoration and synthetic record/plugin removal, before
+removing the disposable site/database/network. Require the final cleanup marker.
+
+Actual Chrome review on5.4.9/6.1.4 confirmed localized editor text, inline Custom
+Reply help, contact-ID edit/save and disabled status in the database. Desktop1280
+screenshots were inspected. At390px, form fields/help wrap but the long plugin
+page title makes the document651px wide; narrow-screen acceptance remains open.
+This does not cover browser contact submission, custom ACL/session flows,
+keyboard-only or screen-reader acceptance. No provider call occurs in this mode.

@@ -1,12 +1,14 @@
 """Fresh Joomla native acceptance. No published ports or live API credentials."""
 from pathlib import Path
+from review_tunnel import open_tunnel
 import argparse,hashlib,json,os,shutil,subprocess,sys,tarfile,tempfile,time,urllib.request,uuid
 ROOT=Path(__file__).resolve().parents[1]
 VERSIONS={'5.4.9':'8c658d16b6e908f8cfce3556ac7280fe210c4ebd916202f406fe6bf1b5b05149','6.1.4':'9558a3a3754cbe798c8a8b3d46afa4e4a0a9284de876e4ce82c0ccaeb9f4af41'}
-a=argparse.ArgumentParser();a.add_argument('version',choices=VERSIONS);a.add_argument('--archive',type=Path,help='Optional already-downloaded official package; still hash checked');args=a.parse_args()
+a=argparse.ArgumentParser();a.add_argument('version',choices=VERSIONS);a.add_argument('--archive',type=Path,help='Optional already-downloaded official package; still hash checked');a.add_argument('--review-port',type=int,help='Keep disabled-plugin admin UI on a loopback port until Ctrl-C');args=a.parse_args()
+if args.review_port is not None and not 1024 <= args.review_port <= 65535:a.error('Review port must be between1024 and65535')
 work=ROOT/'.native-work';work.mkdir(exist_ok=True)
 site=Path(tempfile.mkdtemp(prefix=args.version+'-',dir=work));prefix='mcjn-'+uuid.uuid4().hex[:10];network=prefix+'-net';db=prefix+'-db';http=prefix+'-http';tls=prefix+'-receiver';owned=[];created_network=False
-image='mailchannels-joomla-native:php83';logs=[];checks=0
+image='mailchannels-joomla-native:php83';logs=[];checks=0;tunnel=None
 
 def run(cmd,timeout=180):
  p=subprocess.run(cmd,text=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,timeout=timeout)
@@ -86,11 +88,21 @@ try:
  php('admin-setup','JOOMLA_ADMIN_READY');services(False)
  client('admin-http-probe','JOOMLA_ADMIN_HTTP_COMPLETE 12 checks',12)
  state=php('admin-state','ADMIN_STATE');assert '42,77' in state and '"enabled":0' in state
+ if args.review_port:
+  php('admin-browser','JOOMLA_BROWSER_READY',extra=(args.review_port,))
+  tunnel=open_tunnel(http,args.review_port)
+  print('BROWSER_REVIEW http://127.0.0.1:'+str(args.review_port)+'/administrator/',flush=True)
+  print('Synthetic admin: fixture-operator / Local-Joomla-Fixture-12345!; Ctrl-C runs cleanup.',flush=True)
+  try:
+   while True:time.sleep(1)
+  except KeyboardInterrupt:pass
+  tunnel.shutdown();tunnel.server_close();tunnel=None
  stop(http);php('admin-cleanup','JOOMLA_ADMIN_CLEANED')
  assert checks==136,checks
  print(f'JOOMLA_NATIVE_COMPLETE {args.version} {checks} native checks + 12 TLS checks',flush=True)
  logs.append(f'JOOMLA_NATIVE_COMPLETE {args.version} {checks} native checks + 12 TLS checks\n')
 finally:
+ if tunnel:tunnel.shutdown();tunnel.server_close()
  cleanup_errors=[]
  # Also cover a TLS child interrupted by the orchestration timeout.
  for name in [*reversed(owned),prefix+'-tls']:
