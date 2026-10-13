@@ -1,10 +1,16 @@
 <?php
-/** @copyright (C) 2026 MailChannels; @license GPL-2.0-or-later */
+/**
+ * @copyright (C) 2026 MailChannels
+ * @license   GNU General Public License version 2 or later; see LICENSE
+ */
 declare(strict_types=1);
 namespace MailChannels\Joomla\Candidate;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Mail\Mail;
+
+
+\defined('_JEXEC') or die;
 
 /** Unreleased template transport candidate; not a global Joomla mail replacement. */
 final class ApiMail extends Mail {

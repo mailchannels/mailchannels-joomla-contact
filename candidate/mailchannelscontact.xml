@@ -4,6 +4,7 @@
 <name>PLG_CONTACT_MAILCHANNELSCONTACT</name>
 <author>MailChannels</author><authorEmail>dev@mailchannels.com</authorEmail>
 <copyright>(C) 2026 MailChannels</copyright>
+<creationDate>2026-10</creationDate><authorUrl>https://www.mailchannels.com/</authorUrl>
 <version>0.0.0</version><license>GPL-2.0-or-later</license>
 <description>PLG_CONTACT_MAILCHANNELSCONTACT_XML_DESCRIPTION</description>
 <namespace path="src">MailChannels\Joomla\Candidate</namespace>
@@ -11,4 +12,5 @@
 <config><fields name="params"><fieldset name="basic">
 <field name="contact_ids" type="text" label="PLG_CONTACT_MAILCHANNELSCONTACT_IDS_LABEL" description="PLG_CONTACT_MAILCHANNELSCONTACT_IDS_DESCRIPTION" default=""/>
 </fieldset></fields></config>
+<updateservers><server type="extension" name="Contact - MailChannels">https://raw.githubusercontent.com/mailchannels/mailchannels-joomla-contact/main/update.xml</server></updateservers>
 </extension>

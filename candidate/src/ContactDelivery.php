@@ -14,6 +14,9 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
 
+
+\defined('_JEXEC') or die;
+
 final class ContactDelivery {
     private \Closure $submit;
     public function __construct(private object $app, callable $submit, private array $senders, private array $roots=[]) {$this->submit=\Closure::fromCallable($submit);}

@@ -1,4 +1,5 @@
 <?php
+define('_JEXEC', 1);
 require '/candidate/candidate/src/HttpsSubmitter.php';
 $submit=new \MailChannels\Joomla\Candidate\HttpsSubmitter('tls-fixture-dummy-key');
 $start=microtime(true);
