@@ -38,7 +38,7 @@ final class HttpsSubmitter {
         } catch (\Throwable $e) {
             // Never surface response bodies, credentials or underlying transport exceptions.
             return $this->fail('unexpected response handling error');
-        } finally {curl_close($handle);}
+        }
     }
     /** Log only operational metadata: never the API key, message body or addresses. */
     private function fail(string $reason,int $status=0,int $curlError=0,string $requestId=''):bool {
