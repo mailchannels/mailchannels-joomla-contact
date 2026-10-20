@@ -7,15 +7,15 @@
  */
 declare(strict_types=1);
 namespace MailChannels\Joomla\Candidate;
+
+\defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Mail\MailTemplate;
 use Joomla\CMS\String\PunycodeHelper;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
-
-
-\defined('_JEXEC') or die;
 
 final class ContactDelivery {
     private \Closure $submit;
@@ -35,10 +35,11 @@ final class ContactDelivery {
         $payloads=[];
         // Render/validate every selected template before making the first request.
         foreach($templates as $id=>$to) {
-            $mail=new ApiMail(static function($payload)use(&$payloads){$payloads[]=$payload;return true;},$this->senders,$this->roots);
+            $mail=new ApiMail($this->senders,$this->roots);
             $template=new MailTemplate($id,$this->app->getLanguage()->getTag(),$mail);
             $template->addRecipient($to);$template->setReplyTo($templateData['email'],$templateData['name']);
             $template->addTemplateData($templateData);$template->addUnsafeTags(['name','email','body']);$template->send();
+            if($mail->captured)$payloads[]=$mail->captured;
         }
         foreach($payloads as $payload) {
             try {$accepted=($this->submit)($payload);}catch(\Throwable $e){$accepted=false;}

@@ -4,7 +4,7 @@ use MailChannels\Joomla\Candidate\ApiMail;
 $app->set('mailfrom','sender@example.com');$app->set('fromname','Fixture');$app->set('mailonline',1);
 $count=0;$root='/app/tmp/visibility-attachments';mkdir($root);file_put_contents($root.'/fixture.txt','local bytes');file_put_contents('/app/tmp/visibility-outside.txt','outside');symlink('/app/tmp/visibility-outside.txt',$root.'/escape.txt');
 function check($ok,$label){global $count;if(!$ok)throw new RuntimeException($label);++$count;echo "PASS $label\n";}
-function mailer($roots=[]){$m=new ApiMail(static fn($p)=>true,['sender@example.com'],$roots);$m->addRecipient('to@example.com');$m->setSubject('Fixture');$m->setBody('Body');return $m;}
+function mailer($roots=[]){$m=new ApiMail(['sender@example.com'],$roots);$m->addRecipient('to@example.com');$m->setSubject('Fixture');$m->setBody('Body');return $m;}
 try {
  $m=mailer();$m->addStringAttachment("\x00\xffbinary",'binary.bin');$p=$m->payload();
  check(base64_decode($p['attachments'][0]['content'],true)==="\x00\xffbinary",'binary string attachment round trip');

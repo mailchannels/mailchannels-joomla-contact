@@ -9,7 +9,12 @@ function check($ok,$label){global $count;if(!$ok)throw new RuntimeException($lab
  $contact=(object)['id'=>41,'params'=>new \Joomla\Registry\Registry(['custom_reply'=>0])];
  $plugin->submit(new \Joomla\CMS\Event\Contact\SubmitContactEvent('onSubmitContact',['subject'=>$contact,'data'=>[]]));
  check(true,'unselected contact returns before delivery');
- $contact->id=42;$failed=false;
- try{$plugin->submit(new \Joomla\CMS\Event\Contact\SubmitContactEvent('onSubmitContact',['subject'=>$contact,'data'=>[]]));}catch(RuntimeException $e){$failed=str_contains($e->getMessage(),'custom reply');}
- check($failed,'selected contact requires deliberate core suppression before delivery');
-echo "JOOMLA_PLUGIN_DISCOVERY_COMPLETE $count checks\n";
+ $contact->id=42;
+ // A refused delivery redirects back to the form and exits, so verify the logged reason on shutdown.
+ register_shutdown_function(static function()use($app){
+  $log=(string)@file_get_contents($app->get('log_path').'/plg_contact_mailchannelscontact.php');
+  echo "\n";check(empty($GLOBALS['returned']) && str_contains($log,'custom reply'),'selected contact requires deliberate core suppression before delivery');
+  echo "JOOMLA_PLUGIN_DISCOVERY_COMPLETE {$GLOBALS['count']} checks\n";
+ });
+ $plugin->submit(new \Joomla\CMS\Event\Contact\SubmitContactEvent('onSubmitContact',['subject'=>$contact,'data'=>[]]));
+ $returned=true;throw new LogicException('Expected refused delivery to redirect');

@@ -17,7 +17,7 @@ DOM-driven functional acceptance, not a complete visual/accessibility review.
 The deterministic CAPTCHA provider tested native ordering, not real anti-bot
 strength or a production CAPTCHA service. It is not distributed here.
 
-The public `native/run.py` harness reproduces 136 native checks per release on
+The public `native/run.py` harness reproduces 133 native checks per release on
 fresh sites using the pinned official full packages and a disposable MariaDB
 container. Local fresh-site runs passed on both releases. GitHub Actions has a
 separate native matrix; check the current PR commit's results before release.

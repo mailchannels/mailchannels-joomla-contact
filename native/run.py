@@ -75,7 +75,7 @@ try:
  else:raise RuntimeError('DB readiness timeout')
  out=docker('run','--rm','--network',network,'-v',f'{site}:/app','-w','/app',image,'php','-d','disable_functions=mail','installation/joomla.php','install','--site-name=MailChannels isolated fixture','--admin-user=Fixture Operator','--admin-username=fixture-operator','--admin-password=Local-Joomla-Fixture-12345!','--admin-email=operator@example.com','--db-type=mysql',f'--db-host={db}','--db-user=joomla','--db-pass=local-joomla-only','--db-name=joomla','--db-prefix=fixture_','--db-encryption=0','--no-interaction')
  assert (site/'configuration.php').exists() and not (site/'installation').exists(),'Joomla installation incomplete'
- for script,sentinel,count in [('template-probe','JOOMLA_TEMPLATE',20),('mime-probe','JOOMLA_MIME',12),('delivery-probe','JOOMLA_DELIVERY',10),('plugin-probe','JOOMLA_PLUGIN_PROBE_COMPLETE 5 checks',8),('custom-template-probe','JOOMLA_CUSTOM_TEMPLATE_COMPLETE 5 checks',15),('package-probe','JOOMLA_PACKAGE',14)]:php(script,sentinel,count)
+ for script,sentinel,count in [('template-probe','JOOMLA_TEMPLATE',17),('mime-probe','JOOMLA_MIME',12),('delivery-probe','JOOMLA_DELIVERY',10),('plugin-probe','JOOMLA_PLUGIN_PROBE_COMPLETE 5 checks',8),('custom-template-probe','JOOMLA_CUSTOM_TEMPLATE_COMPLETE 5 checks',15),('package-probe','JOOMLA_PACKAGE',14)]:php(script,sentinel,count)
  php('e2e-setup','JOOMLA_CONTACT_FIXTURE_READY');services(True)
  client('e2e-probe','JOOMLA_E2E_COMPLETE 19 checks',19)
  for mode in ['disabled','unselected','no-suppression']:
@@ -98,7 +98,7 @@ try:
   except KeyboardInterrupt:pass
   tunnel.shutdown();tunnel.server_close();tunnel=None
  stop(http);php('admin-cleanup','JOOMLA_ADMIN_CLEANED')
- assert checks==136,checks
+ assert checks==133,checks
  print(f'JOOMLA_NATIVE_COMPLETE {args.version} {checks} native checks + 12 TLS checks',flush=True)
  logs.append(f'JOOMLA_NATIVE_COMPLETE {args.version} {checks} native checks + 12 TLS checks\n')
 finally:

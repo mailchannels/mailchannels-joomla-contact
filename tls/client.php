@@ -1,4 +1,5 @@
 <?php
+// The candidate classes refuse to load outside Joomla; this fixture loads one directly.
 define('_JEXEC', 1);
 require '/candidate/candidate/src/HttpsSubmitter.php';
 $submit=new \MailChannels\Joomla\Candidate\HttpsSubmitter('tls-fixture-dummy-key');
