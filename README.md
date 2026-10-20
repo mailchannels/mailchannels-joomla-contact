@@ -62,7 +62,8 @@ the primary was accepted.
 
 There is no queue, automatic retry or durable receipt store. Repeating a user
 submission starts a new attempt and may duplicate an already accepted message.
-Do not automatically resend after uncertainty. Queueing, retry or exactly-once
+On failure the visitor returns to the form with a short warning and their input
+kept. Do not automatically resend after uncertainty. Queueing, retry or exactly-once
 claims would require additional durable operation tracking and reconciliation.
 
 ## Validation and release status

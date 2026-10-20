@@ -40,7 +40,7 @@ if gate:
  root.joinpath('visibility-contact-events').write_text('')
  d=fields();code,html=request(d)
  check(records()==[],gate+' prevents HTTPS submission')
- check(code==(503 if gate=='no-suppression' else 200) and 'accepted for email processing' not in html,gate+' does not claim acceptance')
+ check(code==200 and 'accepted for email processing' not in html and (gate!='no-suppression' or 'could not confirm that your message was sent' in html),gate+' does not claim acceptance')
  print(f'JOOMLA_E2E_GATE_COMPLETE {gate} {checks} checks');sys.exit(0)
 for mode,copy,expected in [('success',False,1),('success',True,2),('reject',True,1),('copy-failure',True,2)]:
  root.joinpath('visibility-contact-mode').write_text(mode);root.joinpath('visibility-contact-events').write_text('')
@@ -54,7 +54,7 @@ for mode,copy,expected in [('success',False,1),('success',True,2),('reject',True
  if mode=='success':check(code==200 and 'accepted for email processing' in html,'success redirect shows API acceptance message')
  else:
   log=Path('/app/administrator/logs/plg_contact_mailchannelscontact.php').read_text()
-  check(code==503 and 'accepted for email processing' not in html and 'message not accepted (HTTP 202' in log and 'tls-fixture-dummy-key' not in log and 'visitor@example.com' not in log,'uncertain/failure response does not claim success and logs redacted reason')
+  check(code==200 and 'accepted for email processing' not in html and 'could not confirm that your message was sent' in html and 'Synthetic fixture only' in html and 'message not accepted (HTTP 202' in log and 'tls-fixture-dummy-key' not in log and 'visitor@example.com' not in log,'uncertain/failure response does not claim success and logs redacted reason')
 root.joinpath('visibility-contact-mode').write_text('success');root.joinpath('visibility-contact-events').write_text('')
 d=fields();d={k:v for k,v in d.items() if not(len(k)==32 and v=='1')};code,html=request(d)
 check(records()==[],'missing CSRF prevents actual HTTPS submission')
