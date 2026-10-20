@@ -31,7 +31,7 @@ final class MailChannelsContact extends CMSPlugin implements SubscriberInterface
             $app->setUserState('com_contact.contact.data',$event->getData());
             $app->enqueueMessage(Text::_('PLG_CONTACT_MAILCHANNELSCONTACT_FAILED'),'warning');
             // Redirect here: returning would let com_contact clear the form and follow its success redirect.
-            $app->redirect(Route::_('index.php?option=com_contact&view=contact&id='.$app->getInput()->getString('id').'&catid='.(int)$contact->catid,false));
+            $app->redirect(Route::_('index.php?option=com_contact&view=contact&id='.$app->getInput()->getString('id').'&catid='.(int)($contact->catid??0),false));
         }
         $app->enqueueMessage(Text::_('PLG_CONTACT_MAILCHANNELSCONTACT_ACCEPTED'));
     }
