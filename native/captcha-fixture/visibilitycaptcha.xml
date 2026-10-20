@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extension type="plugin" group="captcha" method="upgrade">
+<name>Visibility deterministic CAPTCHA — TEST ONLY</name><version>0.0.0</version>
+<description>Disposable local integration fixture. NOT an anti-bot mechanism. Never install in production.</description>
+<namespace path="src">MailChannels\Joomla\TestCaptcha</namespace>
+<files><folder plugin="visibilitycaptcha">services</folder><folder>src</folder></files>
+</extension>
