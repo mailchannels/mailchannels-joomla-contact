@@ -13,7 +13,6 @@ final class ApiMail extends Mail {
     public function __construct(private array $allowedSenders, private array $attachmentRoots=[]) {
         parent::__construct(true);
         $this->CharSet='UTF-8';
-        $this->SMTPAutoTLS=false;
         $this->setFrom((string) Factory::getApplication()->get('mailfrom'),(string) Factory::getApplication()->get('fromname'),false);
     }
     public function Send() {
