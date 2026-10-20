@@ -1,5 +1,8 @@
 <?php
-/** @license GPL-2.0-or-later */
+/**
+ * @copyright (C) 2026 MailChannels
+ * @license   GNU General Public License version 2 or later; see LICENSE
+ */
 defined('_JEXEC') or die;
 return new class implements \Joomla\DI\ServiceProviderInterface {
     public function register(\Joomla\DI\Container $container) {
