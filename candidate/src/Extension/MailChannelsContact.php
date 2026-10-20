@@ -3,6 +3,7 @@
 namespace MailChannels\Joomla\Candidate\Extension;
 defined('_JEXEC') or die;
 use Joomla\CMS\Event\Contact\SubmitContactEvent;
+use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\Event\SubscriberInterface;
 use MailChannels\Joomla\Candidate\ContactDelivery;
@@ -14,6 +15,7 @@ final class MailChannelsContact extends CMSPlugin implements SubscriberInterface
         $ids=array_filter(array_map('trim',explode(',',(string)$this->params->get('contact_ids',''))));
         if(!in_array((string)$event->getContact()->id,$ids,true))return;
         $app=$this->getApplication();
+        Log::addLogger(['text_file'=>'plg_contact_mailchannelscontact.php'],Log::ALL,['mailchannelscontact']);
         $senders=array_filter(array_map('trim',explode(',',(string)getenv('MAILCHANNELS_JOOMLA_ALLOWED_SENDERS'))));
         $roots=json_decode((string)getenv('MAILCHANNELS_JOOMLA_ATTACHMENT_ROOTS'),true)??[];
         if(!is_array($roots) || array_filter($roots,static fn($value)=>!is_string($value)))throw new \RuntimeException('MailChannels: invalid server attachment configuration',503);

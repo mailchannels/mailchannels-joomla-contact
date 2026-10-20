@@ -54,8 +54,11 @@ The client makes one request per message to the fixed HTTPS send endpoint with
 TLS peer/hostname verification, no redirects, a five-second connection timeout,
 15-second total timeout and 64KiB response cap. Only HTTP202 with one index0
 `sent` result confirms API acceptance, not inbox delivery. Failures and uncertain
-responses do not trigger retry or SMTP/PHP fallback. A primary failure stops the
-copy; a copy failure can occur after the primary was accepted.
+responses do not trigger retry or SMTP/PHP fallback. Failed sends are logged at
+Error level to `plg_contact_mailchannelscontact.php` in Joomla's log folder with
+the reason, HTTP status, curl error and provider `request_id`, never the key, body
+or addresses. A primary failure stops the copy; a copy failure can occur after
+the primary was accepted.
 
 There is no queue, automatic retry or durable receipt store. Repeating a user
 submission starts a new attempt and may duplicate an already accepted message.
