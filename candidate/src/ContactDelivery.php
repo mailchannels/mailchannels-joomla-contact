@@ -7,6 +7,9 @@
  */
 declare(strict_types=1);
 namespace MailChannels\Joomla\Candidate;
+
+\defined('_JEXEC') or die;
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\Mail\MailTemplate;
 use Joomla\CMS\String\PunycodeHelper;

@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace MailChannels\Joomla\Candidate;
 
+\defined('_JEXEC') or die;
+
 use Joomla\CMS\Log\Log;
 
 /** One bounded HTTPS attempt. TRUE means API acceptance, never inbox delivery. */
