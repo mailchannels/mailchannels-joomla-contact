@@ -6,7 +6,7 @@ use Joomla\CMS\Event\Contact\SubmitContactEvent;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Plugin\CMSPlugin;
-use Joomla\CMS\Router\Route;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Event\SubscriberInterface;
 use MailChannels\Joomla\Candidate\ContactDelivery;
 use MailChannels\Joomla\Candidate\HttpsSubmitter;
@@ -31,7 +31,8 @@ final class MailChannelsContact extends CMSPlugin implements SubscriberInterface
             $app->setUserState('com_contact.contact.data',$event->getData());
             $app->enqueueMessage(Text::_('PLG_CONTACT_MAILCHANNELSCONTACT_FAILED'),'warning');
             // Redirect here: returning would let com_contact clear the form and follow its success redirect.
-            $app->redirect(Route::_('index.php?option=com_contact&view=contact&id='.$app->getInput()->getString('id').'&catid='.(int)($contact->catid??0),false));
+            // A non-SEF URL reaches the contact form even when no menu item routes to it.
+            $app->redirect(Uri::base().'index.php?option=com_contact&view=contact&id='.(int)$contact->id);
         }
         $app->enqueueMessage(Text::_('PLG_CONTACT_MAILCHANNELSCONTACT_ACCEPTED'));
     }
