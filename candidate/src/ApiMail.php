@@ -8,23 +8,18 @@ use Joomla\CMS\Mail\Mail;
 
 /** Unreleased template transport candidate; not a global Joomla mail replacement. */
 final class ApiMail extends Mail {
-    private \Closure $submit;
-    public function __construct(callable $submit, private array $allowedSenders, private array $attachmentRoots=[]) {
+    /** Payload of the last successful Send(); ContactDelivery submits it after all templates render. */
+    public array $captured=[];
+    public function __construct(private array $allowedSenders, private array $attachmentRoots=[]) {
         parent::__construct(true);
-        $this->submit=\Closure::fromCallable($submit);
         $this->CharSet='UTF-8';
         $this->SMTPAutoTLS=false;
         $this->setFrom((string) Factory::getApplication()->get('mailfrom'),(string) Factory::getApplication()->get('fromname'),false);
     }
     public function Send() {
         if (!Factory::getApplication()->get('mailonline',1)) throw new \RuntimeException('MailChannels: site mail disabled');
-        $payload=$this->payload();
         // Deliberately never call parent::Send(): Joomla may retry its SMTP path.
-        try { $accepted=($this->submit)($payload); } catch (\Throwable $error) {
-            // Do not attach a provider exception: it may contain secrets or message data.
-            throw new \RuntimeException('MailChannels: acceptance unconfirmed; do not automatically resend');
-        }
-        if ($accepted!==true) throw new \RuntimeException('MailChannels: acceptance unconfirmed; do not automatically resend');
+        $this->captured=$this->payload();
         return true;
     }
     public function payload():array {

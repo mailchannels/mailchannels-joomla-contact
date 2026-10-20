@@ -24,7 +24,7 @@ secrets. Only the isolated API stand-in receives requests. PHP mail is disabled;
 no real API key is provided. Generated certificates are ignored under tls/generated.
 Never install the deterministic CAPTCHA fixture on a real site or ship it in a ZIP.
 
-Require `JOOMLA_NATIVE_COMPLETE VERSION 136 native checks + 12 TLS checks`.
+Require `JOOMLA_NATIVE_COMPLETE VERSION 133 native checks + 12 TLS checks`.
 The runner verifies individual completion sentinels and PASS counts because
 Joomla's exception handler can sometimes exit zero after an error. It verifies
 fresh installation, templates/attachments, plugin package/discovery/lifecycle,
