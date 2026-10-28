@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- License: GPL-2.0-or-later -->
+<extension type="plugin" group="contact" method="upgrade">
+<name>PLG_CONTACT_MAILCHANNELSCONTACT</name>
+<author>MailChannels</author><authorEmail>dev@mailchannels.com</authorEmail>
+<copyright>(C) 2026 MailChannels</copyright>
+<version>0.0.0</version><license>GPL-2.0-or-later</license>
+<description>PLG_CONTACT_MAILCHANNELSCONTACT_XML_DESCRIPTION</description>
+<namespace path="src">MailChannels\Joomla\Candidate</namespace>
+<files><folder plugin="mailchannelscontact">services</folder><folder>src</folder><folder>language</folder><filename>LICENSE</filename></files>
+<config><fields name="params"><fieldset name="basic">
+<field name="contact_ids" type="text" label="PLG_CONTACT_MAILCHANNELSCONTACT_IDS_LABEL" description="PLG_CONTACT_MAILCHANNELSCONTACT_IDS_DESCRIPTION" default=""/>
+</fieldset></fields></config>
+</extension>
