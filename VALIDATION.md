@@ -1,9 +1,10 @@
 # Validation scope
 
 The candidate files were tested on Joomla 5.4.9 and 6.1.4 with PHP
-8.3.35 and MariaDB 11.8.9. The reviewed nine-file ZIP SHA-256 is:
+8.3.35 and MariaDB 11.8.9. `python build_package.py` builds the nine-file ZIP
+from this source, and `native/run.py` installs that build. Its SHA-256 is:
 
-`601c87c198496068696c25d9f14568f4892c9e5aa29e079de27f2f9016f8bbe9`
+`2f75127f7c387254cfd972902c52549b083c2b9be8d26364b0e2b710bcdfe5e2`
 
 Per release, native validation covered 20 template checks, 12 attachment/header
 checks, 10 delivery/copy/failure checks, 8 installation/discovery checks,
