@@ -33,8 +33,10 @@ All email requests in these checks went to an isolated stand-in, not MailChannel
 No evidence here proves live delivery, all Joomla/PHP versions, every custom
 field/MIME feature, mobile/accessibility acceptance, or exactly-once behavior.
 
-The display name is now MailChannels Contact. Chrome screenshots inspected on
-both versions at 390px show document width 375px (previously 651px). The
-unreleased description, Custom Reply help and Disabled status remain visible.
+Chrome screenshots inspected on both versions at 390px, taken while the display
+name was MailChannels Contact, show document width 375px (previously 651px). The
+current display name is Contact - MailChannels; its 390px layout check is
+pending. The unreleased description, Custom Reply help and Disabled status
+remained visible.
 The native header still truncates under its gear control; this is not full
 mobile or accessibility certification. No provider request was made.

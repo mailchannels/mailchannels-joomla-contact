@@ -1,5 +1,8 @@
 <?php
-/** @copyright (C) 2026 MailChannels; @license GPL-2.0-or-later */
+/**
+ * @copyright (C) 2026 MailChannels
+ * @license   GNU General Public License version 2 or later; see LICENSE
+ */
 declare(strict_types=1);
 namespace MailChannels\Joomla\Candidate;
 

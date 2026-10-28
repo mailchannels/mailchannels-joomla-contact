@@ -15,8 +15,13 @@ or submit this ZIP as approved until the outstanding checks are resolved.
 4. Choose a real version and supported runtime range, review GPL/provenance,
    package metadata, documentation and update/distribution hosting. Build the ZIP,
    record hashes, install/reinstall/uninstall it on clean supported Joomla sites.
-5. Publish an approved versioned source tag and direct ZIP download. Keep test
-   fixtures and credentials out of the ZIP. Recheck source/download links.
+5. Publish an approved versioned source tag and GitHub release with its ZIP asset.
+   Keep test fixtures and credentials out of the ZIP; recheck source/download links.
+   The manifest polls
+   https://raw.githubusercontent.com/mailchannels/mailchannels-joomla-contact/main/update.xml
+   (JED Checker US1). Then merge update.xml on main with the release's download
+   URL, version and sha256/sha512. Never reference an unpublished ZIP; keep the
+   repository and branch names stable.
 6. Prepare screenshots and accurate contact-only description, service dependency,
    installation/support links and pricing classification. JED's SaaS rules require
    paid classification when the required service is paid or trial-only; “Free”
