@@ -15,20 +15,19 @@ or submit this ZIP as approved until the outstanding checks are resolved.
 4. Choose a real version and supported runtime range, review GPL/provenance,
    package metadata, documentation and update/distribution hosting. Build the ZIP,
    record hashes, install/reinstall/uninstall it on clean supported Joomla sites.
-5. Update server: the manifest polls
+5. Publish an approved versioned source tag and GitHub release with its ZIP asset.
+   Keep test fixtures and credentials out of the ZIP; recheck source/download links.
+   The manifest polls
    https://raw.githubusercontent.com/mailchannels/mailchannels-joomla-contact/main/update.xml
-   (JED Checker US1). Publish the GitHub release with its ZIP asset first, then
-   merge a change adding or regenerating update.xml on main with that release's
-   download URL, version and sha256/sha512. Never point update.xml at a ZIP that
-   is not published yet; keep the repository and branch names stable.
-6. Publish an approved versioned source tag and direct ZIP download. Keep test
-   fixtures and credentials out of the ZIP. Recheck source/download links.
-7. Prepare screenshots and accurate contact-only description, service dependency,
+   (JED Checker US1). Then merge update.xml on main with the release's download
+   URL, version and sha256/sha512. Never reference an unpublished ZIP; keep the
+   repository and branch names stable.
+6. Prepare screenshots and accurate contact-only description, service dependency,
    installation/support links and pricing classification. JED's SaaS rules require
    paid classification when the required service is paid or trial-only; “Free”
    requires a permanent free service tier. Verify the current plan; do not infer
    listing classification from the plugin's GPL license or zero code price.
-8. In JED Profile > Submit extension, complete the form and record the pending
+7. In JED Profile > Submit extension, complete the form and record the pending
    receipt. Resolve review feedback; verify the accepted page, category/search
    discoverability and downloadable package. A source repository is not a listing.
 
