@@ -11,7 +11,7 @@ namespace MailChannels\Joomla\Candidate;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Mail\Mail;
 
-/** Unreleased template transport candidate; not a global Joomla mail replacement. */
+/** Template transport for selected contact forms; not a global Joomla mail replacement. */
 final class ApiMail extends Mail {
     /** Payload of the last successful Send(); ContactDelivery submits it after all templates render. */
     public array $captured=[];

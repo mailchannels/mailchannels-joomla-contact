@@ -1,6 +1,6 @@
 # Contributing
 
-This project is unreleased. Keep the contact-only scope and explicit routing
+Keep the contact-only scope and explicit routing
 controls intact. Do not add retries or silently fall back to Joomla/SMTP mail.
 Never put API keys or actual visitor data in issues, examples or test fixtures.
 
