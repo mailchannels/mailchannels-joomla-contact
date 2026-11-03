@@ -4,7 +4,7 @@ This Joomla contact plugin sends selected core `com_contact` forms through the
 MailChannels Email API. It preserves the native primary and optional sender-copy
 templates. It is a form-mail integration; it does
 not replace Joomla's global mailer or handle registration/password-reset mail.
-Support: dev@mailchannels.com. License: GPL-2.0-or-later.
+License: GPL-2.0-or-later. See [Support](#support) for help.
 
 The candidate has been tested on Joomla 5.4.9 and 6.1.4 with PHP 8.3.35 and
 MariaDB 11.8.9. It is not production-approved or listed in JED. Broader version
@@ -90,5 +90,11 @@ are sent to MailChannels for processing. Provide appropriate notice to site user
 Do not describe API acceptance as recipient delivery.
 
 - [Email API documentation](https://docs.mailchannels.net/email-api/)
-- Support and maintenance: dev@mailchannels.com
+- [Support](#support)
 - [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md)
+
+## Support
+
+This project is supported by the MailChannels team on a best-effort basis. The best way to get support is to file an issue on GitHub: https://github.com/mailchannels/mailchannels-joomla-contact/issues
+
+If you are a MailChannels customer and have a problem with the operation of the MailChannels service, you can get support at https://support.mailchannels.com/
