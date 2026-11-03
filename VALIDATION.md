@@ -1,14 +1,21 @@
 # Validation scope
 
-The current candidate, rebuilt by `python build_package.py` after the JED
-Checker fixes, is a nine-file ZIP with SHA-256:
+Version 1.0.0, built by `python build_package.py`, is a nine-file ZIP with SHA-256:
 
-`ba2dd7780d78b7e8aa8bdf19d7d56445d83ab1a9dea9724c17fed5d0b01d6d95`
+`13b733bd00a98f2cb8baa8f928ea0355beb4ba373030e129f2bf59bff09e1734`
 
-Its only validation is the automated `Candidate checks` workflow (TLS suite,
-package build, PHP syntax and the `native/run.py` matrix) on the PR commit.
-Check that run before relying on it; no manual or browser review has covered
-this ZIP.
+On 2026-11-03 this ZIP was installed on a fresh Joomla 6.1.4 site. One contact
+form submission was accepted by the live MailChannels Email API and delivered to
+a MailChannels inbox. With an invalid API key, the same form showed the visitor
+warning and logged HTTP 401 without the key or addresses. JED Checker 2.4.4 reports
+no errors; the base64 attachment encoding needs a JED editor's manual review.
+
+The JED Checker fixes rebuilt the ZIP as
+`ba2dd7780d78b7e8aa8bdf19d7d56445d83ab1a9dea9724c17fed5d0b01d6d95`.
+
+Both ZIPs are also covered by the automated `Candidate checks` workflow (TLS
+suite, package build, PHP syntax and the `native/run.py` matrix). No manual
+browser review has covered them.
 
 The evidence below covers the earlier nine-file ZIP built at commit `7659809`,
 SHA-256 `601c87c198496068696c25d9f14568f4892c9e5aa29e079de27f2f9016f8bbe9`.

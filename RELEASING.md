@@ -1,7 +1,6 @@
 # Release and JED submission
 
-Version 0.0.0 is an unreleased review candidate. Do not tag a production release
-or submit this ZIP as approved until the outstanding checks are resolved.
+Version 1.0.0 is the first release. Repeat these steps for each later release.
 
 1. Assign a company release operator and JED publisher; support is
    dev@mailchannels.com. Register at https://extensions.joomla.org/ and complete

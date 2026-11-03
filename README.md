@@ -1,4 +1,4 @@
-# MailChannels Contact Email API — unreleased candidate
+# MailChannels Contact Email API for Joomla
 
 This Joomla contact plugin sends selected core `com_contact` forms through the
 MailChannels Email API. It preserves the native primary and optional sender-copy
@@ -6,15 +6,14 @@ templates. It is a form-mail integration; it does
 not replace Joomla's global mailer or handle registration/password-reset mail.
 License: GPL-2.0-or-later. See [Support](#support) for help.
 
-The candidate has been tested on Joomla 5.4.9 and 6.1.4 with PHP 8.3.35 and
-MariaDB 11.8.9. It is not production-approved or listed in JED. Broader version
-compatibility is unverified.
+Version 1.0.0 has been tested on Joomla 5.4.9 and 6.1.4 with PHP 8.3.35 and
+MariaDB 11.8.9. Broader version compatibility is unverified. Download the ZIP from
+the [GitHub releases](https://github.com/mailchannels/mailchannels-joomla-contact/releases).
 
 ## Isolated installation and configuration
 
-1. Build the review ZIP with `python build_package.py` from
-   this repository root. The ZIP and file-hash manifest are in
-   `dist`. Install only on an isolated review site.
+1. Install the release ZIP, or build it with `python build_package.py` from
+   this repository root. The ZIP and file-hash manifest are in `dist`.
 2. Set server environment variables `MAILCHANNELS_API_KEY` and comma-separated
    `MAILCHANNELS_JOOMLA_ALLOWED_SENDERS`. Do not place credentials in plugin
    parameters, browser code, logs or exported Joomla configuration.
