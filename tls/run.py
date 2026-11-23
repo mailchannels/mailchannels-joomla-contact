@@ -42,7 +42,7 @@ for scenario in ['trusted','wrong-host','expired','untrusted','redirect','dry-ru
         observed=[json.loads(line) for line in records.read_text().splitlines()] if records.exists() else []
         assert value['accepted']==(scenario=='trusted'),(scenario,value)
         assert len(observed)==(0 if scenario in ['wrong-host','expired','untrusted'] else 1),(scenario,observed)
-        assert all(r=={'path':'/tx/v1/send','key_matches':True,'recipient_matches':True} for r in observed)
+        assert all(r=={'path':'/tx/v1/send','key_matches':True,'user_agent_matches':True,'recipient_matches':True} for r in observed)
         if scenario=='stall':assert 14<=value['seconds']<=20,value
         results.append(dict(scenario=scenario,**value,http_requests=len(observed)))
         print('PASS '+scenario,flush=True)

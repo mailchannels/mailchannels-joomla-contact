@@ -26,7 +26,7 @@ final class MailChannelsContact extends CMSPlugin implements SubscriberInterface
             $senders=array_filter(array_map('trim',explode(',',(string)getenv('MAILCHANNELS_JOOMLA_ALLOWED_SENDERS'))));
             $roots=json_decode((string)getenv('MAILCHANNELS_JOOMLA_ATTACHMENT_ROOTS'),true)??[];
             if(!is_array($roots) || array_filter($roots,static fn($value)=>!is_string($value)))throw new \RuntimeException('MailChannels: invalid server attachment configuration',503);
-            $delivery=new ContactDelivery($app,new HttpsSubmitter((string)getenv('MAILCHANNELS_API_KEY')),$senders,$roots);
+            $delivery=new ContactDelivery($app,new HttpsSubmitter((string)getenv('MAILCHANNELS_API_KEY'),(string)(simplexml_load_file(__DIR__.'/../../mailchannelscontact.xml')->version??'dev')),$senders,$roots);
             $delivery->deliver($contact,$event->getData());
         } catch (\Throwable $e) {
             // Candidate messages are operator text without secrets; other exceptions may quote addresses.

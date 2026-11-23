@@ -5,7 +5,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self,*args):pass
     def do_POST(self):
         body=json.loads(self.rfile.read(int(self.headers['Content-Length'])))
-        record={'path':self.path,'key_matches':self.headers.get('X-Api-Key')=='tls-fixture-dummy-key','recipient_matches':body['personalizations'][0]['to'][0]['email']=='recipient@example.com'}
+        record={'path':self.path,'key_matches':self.headers.get('X-Api-Key')=='tls-fixture-dummy-key','user_agent_matches':self.headers.get('User-Agent')=='mailchannels-joomla/9.9.9 Joomla/unknown','recipient_matches':body['personalizations'][0]['to'][0]['email']=='recipient@example.com'}
         with open('/fixtures/'+scenario+'-requests.jsonl','a') as output:output.write(json.dumps(record)+'\n')
         if scenario=='stall':time.sleep(25)
         if scenario=='redirect':
