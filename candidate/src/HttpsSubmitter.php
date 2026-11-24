@@ -12,7 +12,8 @@ use Joomla\CMS\Log\Log;
 
 /** One bounded HTTPS attempt. TRUE means API acceptance, never inbox delivery. */
 final class HttpsSubmitter {
-    public function __construct(private string $apiKey) {}
+    /** @param string $version Extension release from the manifest, sent in User-Agent for usage reporting. */
+    public function __construct(private string $apiKey, private string $version) {}
     public function __invoke(array $payload):bool {
         if (!function_exists('curl_init')) return $this->fail('curl unavailable');
         if ($this->apiKey==='' || preg_match('/[\r\n\x00]/',$this->apiKey)) return $this->fail('API key missing or invalid');
@@ -23,7 +24,7 @@ final class HttpsSubmitter {
         try {
             if (!curl_setopt_array($handle,[
                 CURLOPT_POST=>true, CURLOPT_POSTFIELDS=>$body,
-                CURLOPT_HTTPHEADER=>['X-Api-Key: '.$this->apiKey,'Content-Type: application/json','Accept: application/json'],
+                CURLOPT_HTTPHEADER=>['X-Api-Key: '.$this->apiKey,'Content-Type: application/json','Accept: application/json','User-Agent: mailchannels-joomla/'.$this->version.' Joomla/'.(defined('JVERSION')?JVERSION:'unknown')],
                 CURLOPT_PROTOCOLS=>CURLPROTO_HTTPS, CURLOPT_FOLLOWLOCATION=>false,
                 CURLOPT_SSL_VERIFYPEER=>true, CURLOPT_SSL_VERIFYHOST=>2,
                 CURLOPT_CONNECTTIMEOUT=>5, CURLOPT_TIMEOUT=>15,
